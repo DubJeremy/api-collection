@@ -1,10 +1,15 @@
-import { Entity, Column, PrimaryGeneratedColumn } from "typeorm";
+import {
+    Entity,
+    Column,
+    PrimaryGeneratedColumn,
+    OneToOne,
+    JoinColumn,
+} from "typeorm";
+
+import { Collection } from "./collection.modele";
 
 @Entity()
 export class User {
-    static findOne(arg0: { id: any }) {
-        throw new Error("Method not implemented.");
-    }
     @PrimaryGeneratedColumn()
     id: number;
 
@@ -17,9 +22,7 @@ export class User {
     @Column()
     password: string;
 
-    @Column("simple-array")
-    cards: string[];
-
-    @Column("simple-array")
-    wantedCards: string[];
+    @OneToOne((type) => Collection)
+    @JoinColumn()
+    collection: Collection;
 }
